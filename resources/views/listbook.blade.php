@@ -17,20 +17,18 @@
                     </p>
                     <div class="w-full max-h-[75vh] overflow-y-auto">
                         <ul class="justify-center font-medium text-lg px-2 py-0 text-left">
-                            <a href="#" class="w-full md:w-auto " class="category-link" data-category="Fiction" value="Fiction">
-                                <li class="hover:border-black hover:bg-gray-100 border-2 border rounded-md pl-5 p-2 m-2 text-left mt-4 category-link"
-                                data-category="Fiction">
-                                Fiction
-                            </li>
+                            <a href="{{route('showcategory', 'Fiction')}}" class= "category-link w-full md:w-auto" data-category="Fiction">
+                                <li class="hover:border-black hover:bg-gray-100 border-2 border rounded-md pl-5 p-2 m-2 text-left mt-4">
+                                    Fiction
+                                </li>
                             </a>
-                            <a href="{{ route('showcategory', 'Reference') }}" class="w-full md:w-auto">
-                                <li class="hover:border-black hover:bg-gray-100 border-2 border rounded-md pl-5 p-2 m-2 text-left category-link"
-                                data-category="Reference">
-                                Reference
-                            </li>
+                            <a href="{{route('showcategory', 'Reference')}}" class="category-link w-full md:w-auto" data-category="Reference">
+                                <li class="hover:border-black hover:bg-gray-100 border-2 border rounded-md pl-5 p-2 m-2 text-left">
+                                    Reference
+                                </li>
                             </a>
                             <a href="#" class="w-full md:w-auto">
-                                <li class="hover:border-black hover:bg-gray-100 border-2 border rounded-md pl-5 p-2 m-2 text-left category-link"
+                                <li class="hover:border-black hover:bg-gray-100 border-2 border rounded-md pl-5 p-2 m-2 text-left"
                                     data-category="Category3">
                                     Category 3
                                 </li>
@@ -323,18 +321,13 @@
                 });
             });
 
+                $('.category-link').on('click', function (e) {
+                    e.preventDefault();
+                    var category = $(this).data('category');
 
-
-            $('.category-link').on('click', function (e) {
-                e.preventDefault();
-                
-                var category = $(this).data('category');  // Get the category text
-                
-                // Reload DataTables with the selected category
-                table.ajax.url("{{ route('listbooks') }}?category=" + category).load();
-            });
-
-
+                    
+                    table.ajax.url("{{ route('showcategory', ':category') }}".replace(':category', category)).load();
+                });
         });
    
 

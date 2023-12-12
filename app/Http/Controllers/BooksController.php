@@ -39,14 +39,26 @@ class BooksController extends Controller
 
 
     public function show($category)
-        {
+    {
             $filteredBooks = Book::where('category', $category)->get();
-        
-            return view('listbook', compact('filteredBooks')); 
+            return DataTables::of($filteredBooks)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
 
+                    $btn = '<button x-on:click="showModal = true" href="javascript:void(0)" id="createNewBook"  data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editBook" >Edit</button>';
+
+                    $btn = $btn.' <button href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteBook">Delete</button>';
+
+
+                    
+
+                        return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
             // for filtering itong show
             // goods na yung $filteredBooks , hindi lang maipalabas sa client side arte
-        }
+    }
 
 
  
