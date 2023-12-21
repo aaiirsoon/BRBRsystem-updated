@@ -72,10 +72,10 @@
                     <div class="w-full h-full">
                         <div class="flex flex-col p-1 h-full">
                             <div class="flex justify-between items-center">
-                                <p class="font-medium text-3xl">Atomic Habits: Tiny Changes, Remarkable Results</p>
-                                <p class="text-xl">Status: <span class="font-medium text-xl">Available</span></p>
+                                <p class="font-medium text-3xl title"></p>
+                                <p class="text-xl">Status: <span class="font-medium text-xl status">Available</span></p>
                             </div>
-                            <p class="text-lg">Author/s: James Clear</p>
+                            <p class="text-lg">Author/s:<p class="author"><p></p>
                             <hr class="my-3">
                             <div>
                                 <p class="font-semibold text-xl text-gray-500">Description</p>
@@ -87,7 +87,7 @@
 
                             <p class="font-semibold text-xl font-md text-gray-600">Borrow History</p>
                             <div class="h-[25vh] overflow-y-auto">
-                                <table class="w-full bg-white border border-gray-200 rounded-md shadow-md mt-2">
+                                <table class="w-full bg-white border border-gray-200 rounded-md shadow-md mt-2" id="data-table">
                                     <thead class="bg-green-800 text-white text-left sticky top-0 z-10">
                                         <tr class="bg-green-800 text-white text-center">
                                             <th
@@ -114,23 +114,7 @@
                                             <td class="py-8 px-8 border-b border-gray-200 text-gray-500" colspan="5">
                                                 No existing records found.
                                             </td>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <td class="py-1 px-8 border-b border-gray-200 font-semibold">
-                                                346457282
-                                            </td>
-                                            <td class="py-1 px-8 border-b border-gray-200">
-                                                Juan dela Cruz
-                                            </td>
-                                            <td class="py-1 px-8 border-b border-gray-200">
-                                                Student
-                                            </td>
-                                            <td class="py-1 px-8 border-b border-gray-200">
-                                                11-22-2023
-                                            </td>
-                                            <td class="py-1 px-8 border-b border-gray-200">
-                                                11-28-2023
-                                            </td>
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -185,22 +169,57 @@ $(function() {
     });
 
     $.ajax({
-    url: '/description/' + {{ $selectedBook->id}},
-    type: 'GET',
-    dataType: 'json',
-    success: function(data) {
-        $('.title').text(data.title); 
-        $('.location_rack').text(data.location_rack); 
-        $('.edition').text(data.edition);
-        $('.author').text(data.author);  
-        $('.publisher').text(data.publisher); 
-        $('.copyright_year').text(data.copyright_year); 
-        $('.category').text(data.category); 
-        $('.condition').text(data.condition); 
-        $('.isbn').text(data.isbn); 
-        $('.description').text(data.description); 
-    }
-});
+        url: '/description/' + {{ $selectedBook->id}},
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            $('.title').text(data.title); 
+            $('.location_rack').text(data.location_rack); 
+            $('.edition').text(data.edition);
+            $('.author').text(data.author);  
+            $('.publisher').text(data.publisher); 
+            $('.copyright_year').text(data.copyright_year); 
+            $('.category').text(data.category); 
+            $('.condition').text(data.condition); 
+            $('.isbn').text(data.isbn); 
+            $('.description').text(data.description); 
+        }
+    });
+    var table = $('#data-table').DataTable({
+                dom: 'lrtip',
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '/borrowhistory/' + {{ $selectedBook->id}},
+                    type: 'GET'
+                },
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'patron_name',
+                        name: 'patron_name'
+                    },
+                    {
+                        data: 'patron_type',
+                        name: 'patron_type'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    }
+
+
+                ]
+
+           
+            });
+
     
 
 

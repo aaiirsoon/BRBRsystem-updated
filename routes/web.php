@@ -68,3 +68,5 @@ Route::get('/patron/borrow/{id}/{book_id}', [PatronController::class, 'show'])->
 Route::get('/description/{id}', [BorrowController::class, 'show'])->name('description');
 
 Route::get('/description/borrow/{id}/{patron_id}', [BorrowController::class, 'borrow'])->name('borrow');
+
+Route::get('borrowhistory/{id}', [BorrowController::class, 'history'])->name('borrowhistory');
