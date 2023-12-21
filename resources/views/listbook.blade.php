@@ -324,11 +324,29 @@
                 $('.category-link').on('click', function (e) {
                     e.preventDefault();
                     var category = $(this).data('category');
-
                     
                     table.ajax.url("{{ route('showcategory', ':category') }}".replace(':category', category)).load();
+
                 });
+                
+            // $('body').on('click', '.borrowBook', function() {
+            // var book_id = $(this).data('id');
+
+            // // Make a GET request to fetch book description based on book_id
+            //     $.get("{{ url('/description') }}/" + book_id, function(data) {
+            //         console.log(data); 
+
+            //     }).fail(function(xhr, status, error) {
+
+            //         console.error(xhr.responseText); 
+            //     });
+            // });
+
+        
         });
+
+
+ 
    
 
 

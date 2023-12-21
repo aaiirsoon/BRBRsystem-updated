@@ -3,6 +3,7 @@
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\BorrowReturnController;
 use App\Http\Controllers\PatronController;
+use App\Http\Controllers\BorrowController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -60,3 +61,10 @@ Route::get('/editpatron/{id}', [PatronController::class, 'edit'])->name('editpat
 Route::post('/addpatrons', [PatronController::class, 'store'])->name('addpatrons');
 Route::delete('/deletepatron/{id}', [PatronController::class, 'destroy'])->name('deletepatron'); 
 
+Route::get('/patron/borrow/{id}/{book_id}', [PatronController::class, 'show'])->name('get_patron');
+
+
+// Route::get('/descriptio', [BooksController::class, 'index'])->name('listbooks'); 
+Route::get('/description/{id}', [BorrowController::class, 'show'])->name('description');
+
+Route::get('/description/borrow/{id}/{patron_id}', [BorrowController::class, 'borrow'])->name('borrow');
