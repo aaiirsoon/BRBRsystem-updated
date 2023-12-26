@@ -69,4 +69,5 @@ Route::get('/description/{id}', [BorrowController::class, 'show'])->name('descri
 
 Route::get('/description/borrow/{id}/{patron_id}', [BorrowController::class, 'borrow'])->name('borrow');
 
+//eto lang nadagdag sa route
 Route::get('borrowhistory/{id}', [BorrowController::class, 'history'])->name('borrowhistory');

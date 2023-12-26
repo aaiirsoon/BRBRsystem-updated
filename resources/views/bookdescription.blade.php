@@ -73,7 +73,7 @@
                         <div class="flex flex-col p-1 h-full">
                             <div class="flex justify-between items-center">
                                 <p class="font-medium text-3xl title"></p>
-                                <p class="text-xl">Status: <span class="font-medium text-xl status">Available</span></p>
+                                <p class="text-xl">Status: <span class="font-medium text-xl status condition"></span></p>
                             </div>
                             <p class="text-lg">Author/s:<p class="author"><p></p>
                             <hr class="my-3">
@@ -114,7 +114,6 @@
                                             <td class="py-8 px-8 border-b border-gray-200 text-gray-500" colspan="5">
                                                 No existing records found.
                                             </td>
-
                                         </tr>
                                     </tbody>
                                 </table>
@@ -185,6 +184,7 @@ $(function() {
             $('.description').text(data.description); 
         }
     });
+
     var table = $('#data-table').DataTable({
                 dom: 'lrtip',
                 processing: true,
@@ -193,32 +193,18 @@ $(function() {
                     url: '/borrowhistory/' + {{ $selectedBook->id}},
                     type: 'GET'
                 },
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'patron_name',
-                        name: 'patron_name'
-                    },
-                    {
-                        data: 'patron_type',
-                        name: 'patron_type'
-                    },
-                    {
-                        data: 'created_at',
-                        name: 'created_at'
-                    },
-                    {
-                        data: 'created_at',
-                        name: 'created_at'
-                    }
+                columns: [    
+                    { data: 'id', name: 'id' },
+                    { data: 'patron_name', name: 'patron_name' },
+                    { data: 'patron_type', name: 'patron_type' },
+                    { data: 'created_at', name: 'created_at' },
+                    { data: 'updated_at', name: 'updated_at' }
 
 
                 ]
 
            
-            });
+    });
 
     
 

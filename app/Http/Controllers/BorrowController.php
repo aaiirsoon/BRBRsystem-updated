@@ -71,8 +71,15 @@ class BorrowController extends Controller
     }
 
     public function history($book_id){
-        $borrowHistory = BorrowHistory::where('book_id', $book_id);
-        return DataTables::of($borrowHistory)->make(true);
+        $borrowHistory = BorrowHistory::with('borrower')->where('book_id', $book_id);
+        return DataTables::of($borrowHistory)
+            ->addColumn('patron_name', function ($borrowHistory) {
+                return $borrowHistory->borrower->name;
+            })
+            ->addColumn('patron_type', function ($borrowHistory) {
+                return $borrowHistory->borrower->type;
+            })
+            ->make(true);
     }
 
 }

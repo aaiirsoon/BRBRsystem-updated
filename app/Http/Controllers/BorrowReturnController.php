@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\BorrowHistory;
+use Yajra\DataTables\Facades\DataTables;
 
 class BorrowReturnController extends Controller
 {
@@ -33,8 +35,31 @@ class BorrowReturnController extends Controller
         // }
         // return view('borrowreturn',compact('books'));
 
-        return view('borrowreturn');
-   
+        $borrowHistory = BorrowHistory::latest()->get();
+        
+        if ($request->ajax()) {
+            $data = BorrowHistory::latest()->get();
+            return DataTables::of($data)
+                    ->addColumn('patron_name', function ($borrowHistory) {
+                            return $borrowHistory->borrower->name;
+                    })
+                    ->addColumn('patron_type', function ($borrowHistory) {
+                        return $borrowHistory->borrower->type;
+                    })
+                    ->addColumn('book_title', function ($borrowHistory) {
+                        return $borrowHistory->book->title;
+                    })
+                    ->make(true);
+        }
+      
+        return view('borrowreturn',compact('borrowHistory'));
     }
-
+   
 }
+
+
+
+    
+    
+
+

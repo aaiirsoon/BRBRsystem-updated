@@ -45,7 +45,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <table class="w-full bg-white border border-gray-200 rounded-md shadow-md mt-2">
+                                <table class="w-full bg-white border border-gray-200 rounded-md shadow-md mt-2" id="data-table">
                                     <thead class="bg-green-800 text-white text-left sticky top-0 z-10">
                                         <tr class="bg-green-800 text-white text-center">
                                             <th class="py-3 px-8 border-b border-gray-200 w-[16rem] rounded-tl">
@@ -71,23 +71,6 @@
                                             <td class="py-8 px-8 border-b border-gray-200 text-gray-500"
                                                 colspan="5">
                                                 No existing records found.
-                                            </td>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <td class="py-2 px-8 border-b border-gray-200 font-semibold">
-                                                <a href="#" class="clickable-cell">346457282</a>
-                                            </td>
-                                            <td class="py-2 px-8 border-b border-gray-200">
-                                                <a href="#" class="clickable-cell">Juan dela Cruz</a>
-                                            </td>
-                                            <td class="py-2 px-8 border-b border-gray-200">
-                                                <a href="#" class="clickable-cell">Student</a>
-                                            </td>
-                                            <td class="py-2 px-8 border-b border-gray-200">
-                                                <a href="#" class="clickable-cell">Atomic Habits</a>
-                                            </td>
-                                            <td class="py-2 px-8 border-b border-gray-200">
-                                                <a href="#" class="clickable-cell">11-22-2023</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -183,4 +166,36 @@
 
 
 </div>
+<script type="text/javascript">
+$(function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    var table = $('#data-table').DataTable({
+                dom: 'lrtip',
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('historybooks') }}",
+                    type: 'GET'
+                },
+                columns: [    
+                    { data: 'id', name: 'id' },
+                    { data: 'patron_name', name: 'patron_name' },
+                    { data: 'patron_type', name: 'patron_type' },
+                    { data: 'book_title', name: 'book_title' },
+                    { data: 'created_at', name: 'created_at' }
+
+
+                ]
+
+           
+    });
+
+});
+
+</script>
 @endsection
