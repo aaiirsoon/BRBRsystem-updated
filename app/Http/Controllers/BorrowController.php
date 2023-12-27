@@ -18,9 +18,7 @@ class BorrowController extends Controller
     public function index(Request $request)
     {
    
-        $books = Book::latest()->get();
-      
-        return view('listbook',compact('books'));
+        return view('bookdescription');
    
     }
 

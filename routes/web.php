@@ -67,7 +67,7 @@ Route::middleware(['librarian'])->group(function () {
     //GENERATE using PDF/DOMPDF (ayaw tumanggap ng javascript dito pag html na)...Datatable nalang may feature na PDF button
     Route::get('/history/borrow/fetch', [BorrowReturnController::class, 'fetchBorrowHistory'])->name('fetchBorrowHistory');
     Route::get('/history/borrow/pdf', [BorrowReturnController::class, 'generateBorrowHistory'])->name('borrowPDF');
-    
+
 
     // Route::get('/history/return/pdf', [BorrowReturnController::class, 'generateReturnHistory'])->name('returnPDF');
 

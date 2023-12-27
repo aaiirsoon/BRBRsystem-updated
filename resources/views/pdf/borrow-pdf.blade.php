@@ -22,7 +22,8 @@
             </tr>
         </thead>
         <tbody id="borrowHistoryBody">
-            <!-- Table rows will be populated dynamically here -->
+            
+            
         </tbody>
     </table>
 
